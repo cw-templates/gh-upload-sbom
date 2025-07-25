@@ -50,13 +50,17 @@ Path and filename of the BOM, default `bom.xml`
 
 Parent project uuid in Dependency-Track (available in DT v4.8 and later)
 
-### `parentName`
+### `parentVersion`
 
 **parentVersion is also required** Parent project name in Dependency-Track (available in DT v4.8 and later)
 
-### `parentVersion`
+### `parentName`
 
 **parentName is also required** Parent project version in Dependency-Track (available in DT v4.8 and later)
+
+### `islatestprojectversion`
+
+If this is the latest version
 
 ## Example usage
 

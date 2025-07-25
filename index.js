@@ -16,6 +16,7 @@ async function run() {
     const parent = core.getInput('parent');
     const parentName = core.getInput('parentname');
     const parentVersion = core.getInput('parentversion');
+    const isLatestProjectVersion = core.getInput('islatestprojectversion');
 
     if (protocol !== "http" && protocol !== "https") {
       throw 'protocol "' + protocol + '" not supported, must be one of: https, http'
@@ -35,6 +36,10 @@ async function run() {
 
     if ((parentName === "" && parentVersion !== "") || (parentName !== "" && parentVersion === "")) {
       throw 'parentName + parentVersion must both be set'
+    }
+
+    if(isLatestProjectVersion !== "" && (isLatestProjectVersion !== "true" || isLatestProjectVersion !== "false")) {
+      throw 'isLatestProjectVersion must be true or false'
     }
 
     core.info(`Reading BOM: ${bomFilename}...`);
@@ -67,6 +72,10 @@ async function run() {
     } else if (parentName && parentName.trim().length > 0 && parentVersion && parentVersion.trim().length > 0) {
       bomPayload.parentName = parentName;
       bomPayload.parentVersion = parentVersion;
+    }
+
+    if(isLatestProjectVersion) {
+      bomPayload.isLatestProjectVersion = Boolean(isLatestProjectVersion);
     }
 
     const postData = JSON.stringify(bomPayload);
